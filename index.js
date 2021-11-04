@@ -9,13 +9,14 @@ const readline = require('readline').createInterface({
   });
   
 
-readline.question("Enter the port number(mandatory)", port => {
+readline.question("Enter the port number(mandatory):", port => {
     if(!port) 
-        throw new Error("Empty Port is not allowed");
+        logger.error("Empty Port is not allowed");
 
     readline.question("Enter the signal(optional):", signal => {
         readline.close();
-        app(port,signal);
+        signal && app(port,signal);
+        !signal && app(port);
     });
 });
 

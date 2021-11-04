@@ -7,7 +7,7 @@ const logger = require("console");
 module.exports = async function(port, signal = "SIGKILL") {
 
     if(isNaN(port)){
-        throw new Error("Please pass a valid port number");
+        logger.error("Please pass a valid port number");
     }
 
     if(!OPERATING_SYSTEM_LABELS.includes(process.platform)){
@@ -24,12 +24,14 @@ module.exports = async function(port, signal = "SIGKILL") {
     /** 
      * To kill the process by port, get processId(pId) 
      */
+    port = Number.parseInt(port);
     let processId =  await (await exec(`lsof -i :${port} -t`)).stdout;
     processId = Number.parseInt(processId);
     
     /**
      * Killing the process by processId 
      */
+    
     try {
         exec(`kill -${INTERRUPT_TYPE[signal]} ${processId}`);            
         confirmationLogs(processId, port);   
