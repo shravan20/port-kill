@@ -3,9 +3,11 @@ const exec = promisify(require("child_process").exec);
 const OPERATING_SYSTEM_LABELS = require("./utils/constants").OPERATING_SYSTEM_LABELS;
 const INTERRUPT_TYPE = require("./utils/constants").INTERRUPT_TYPE;
 const logger = require("console");
+const { exit } = require("process");
 
 module.exports = async function(port, signal = "SIGKILL") {
 
+    port = Number.parseInt(port);
     if(isNaN(port)){
         logger.error("Please pass a valid port number");
         exit(0);
@@ -27,10 +29,15 @@ module.exports = async function(port, signal = "SIGKILL") {
     /** 
      * To kill the process by port, get processId(pId) 
      */
-    port = Number.parseInt(port);
-    let processId =  await (await exec(`lsof -i :${port} -t`)).stdout;
-    processId = Number.parseInt(processId);
-    
+    let processId;
+    try {
+        processId =  await (await exec(`lsof -i :${port} -t`)).stdout;
+        processId = Number.parseInt(processId);
+    } catch(error) {
+        logger.error(`No process running on port: ${port}`);
+        exit(0);
+    }
+
     /**
      * Killing the process by processId 
      */
