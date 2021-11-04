@@ -14,7 +14,7 @@ module.exports = async function(port) {
         throw new Error("Currently not supporting that OS");
     }
     let signal = "SIGKILL";
-    console.log(Object.keys(INTERRUPT_TYPE));
+
     if(signal && !Object.keys(INTERRUPT_TYPE).includes(signal)){
         throw new Error("Invalid Signal, please refer documentation");
     }
@@ -30,13 +30,10 @@ module.exports = async function(port) {
      */
     try {
         exec(`kill -${signal} ${processId}`);            
+        confirmationLogs(processId, port);   
     } catch (error) {
         throw new Error(`Port Killing process Interrupted... Raise the <a href="https://github.com/shravan20/port-killer/issues">issue</a>`);        
     }
-
-    
-    confirmationLogs(processId, port);   
-    
 }
 
 function confirmationLogs(processId, port) {
