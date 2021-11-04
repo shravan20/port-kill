@@ -28,7 +28,12 @@ module.exports = async function(port) {
     /**
      * Killing the process by processId 
      */
-    exec(`kill -${signal} ${processId}`);    
+    try {
+        exec(`kill -${signal} ${processId}`);            
+    } catch (error) {
+        throw new Error(`Port Killing process Interrupted... Raise the <a href="https://github.com/shravan20/port-killer/issues">issue</a>`);        
+    }
+
     
     confirmationLogs(processId, port);   
     
