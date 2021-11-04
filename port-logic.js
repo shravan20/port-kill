@@ -8,17 +8,20 @@ module.exports = async function(port, signal = "SIGKILL") {
 
     if(isNaN(port)){
         logger.error("Please pass a valid port number");
+        exit(0);
     }
 
     if(!OPERATING_SYSTEM_LABELS.includes(process.platform)){
-        throw new Error("Currently not supporting that OS");
+        logger.error("Currently not supporting that OS");
+        exit(0);
     }
 
     /**
      * Check if valid signal value is passed by User
      */
     if(signal && !Object.keys(INTERRUPT_TYPE).includes(signal)){
-        throw new Error("Invalid Signal, please refer documentation");
+        logger.error("Invalid Signal, please refer documentation");
+        exit(0);
     }
     
     /** 
@@ -36,7 +39,8 @@ module.exports = async function(port, signal = "SIGKILL") {
         exec(`kill -${INTERRUPT_TYPE[signal]} ${processId}`);            
         confirmationLogs(processId, port);   
     } catch (error) {
-        throw new Error(`Port Killing process Interrupted... Raise the <a href="https://github.com/shravan20/port-killer/issues">issue</a>`);        
+        logger.error(`Port Killing process Interrupted... Raise the <a href="https://github.com/shravan20/port-killer/issues">issue</a>`);        
+        exit(0);
     }
 }
 
