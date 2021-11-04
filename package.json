@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/shravan20/port-killer/issues"
   },
-  "homepage": "https://github.com/shravan20/port-killer#readme"
+  "homepage": "https://github.com/shravan20/port-killer#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
