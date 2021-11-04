@@ -1,6 +1,6 @@
 {
   "name": "port-kill",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Script to kill the port/process",
   "main": "index.js",
   "scripts": {
