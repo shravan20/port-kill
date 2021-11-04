@@ -19,19 +19,26 @@ module.exports = async function(port) {
         throw new Error("Invalid Signal, please refer documentation");
     }
     
-    /**
+    /** 
      * To kill the process by port, get processId(pId) 
      */
     let processId =  await (await exec(`lsof -i :${port} -t`)).stdout;
     processId = Number.parseInt(processId);
-    exec(`kill -${signal} ${processId}`);
     
+    /**
+     * Killing the process by processId 
+     */
+    exec(`kill -${signal} ${processId}`);    
+    
+    confirmationLogs(processId, port);   
+    
+}
 
-    
+function confirmationLogs(processId, port) {
     logger.table({
         processId: processId,
         portNumber: port
     });
-    logger.info("Process killed successfully in 127.0.0.1");   
-    
+    logger.info("Process killed successfully in 127.0.0.1");
+    logger.info(`Port ${port} will not be accessible on your 127.0.0.1`);
 }
