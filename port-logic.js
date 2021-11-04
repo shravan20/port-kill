@@ -4,7 +4,7 @@ const OPERATING_SYSTEM_LABELS = require("./utils/constants").OPERATING_SYSTEM_LA
 const INTERRUPT_TYPE = require("./utils/constants").INTERRUPT_TYPE;
 const logger = require("console");
 
-module.exports = async function(port) {
+module.exports = async function(port, signal = "SIGKILL") {
 
     if(isNaN(port)){
         throw new Error("Please pass a valid port number");
@@ -13,8 +13,10 @@ module.exports = async function(port) {
     if(!OPERATING_SYSTEM_LABELS.includes(process.platform)){
         throw new Error("Currently not supporting that OS");
     }
-    let signal = "SIGKILL";
 
+    /**
+     * Check if valid signal value is passed by User
+     */
     if(signal && !Object.keys(INTERRUPT_TYPE).includes(signal)){
         throw new Error("Invalid Signal, please refer documentation");
     }
@@ -29,7 +31,7 @@ module.exports = async function(port) {
      * Killing the process by processId 
      */
     try {
-        exec(`kill -${signal} ${processId}`);            
+        exec(`kill -${INTERRUPT_TYPE[signal]} ${processId}`);            
         confirmationLogs(processId, port);   
     } catch (error) {
         throw new Error(`Port Killing process Interrupted... Raise the <a href="https://github.com/shravan20/port-killer/issues">issue</a>`);        
