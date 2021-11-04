@@ -18,7 +18,7 @@
     "url": "https://github.com/shravan20/port-killer/issues"
   },
   "bin": {
-    "port-kill": "index.js"
+    "port-kill": "./index.js"
   },
   "homepage": "https://github.com/shravan20/port-killer#readme",
   "devDependencies": {
