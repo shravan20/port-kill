@@ -26,16 +26,10 @@ readline.question("Enter the port number(mandatory):", port => {
         readline.close();
         signalOption = Number.parseInt(signalOption);
  
-        
-        if(signalOption && isNaN(signalOption)){
-            logger.error("Invalid option");
-            exit(0);
-        }
- 
-        if(signalOption && (signalOption<0 || (signalOption>(Object.keys(INTERRUPTS).length-1)))){
-            logger.error(`Selected option not in range(0-${Object.keys(INTERRUPTS).length-1}) => index values as shown in above table`);
-            exit(0);
-        }
+        /**
+         * Check if selected signal option are valid
+         */
+        checkSignalOption(signalOption);
         
         let signal;
         signal = INTERRUPTS[signalOption];
@@ -44,4 +38,17 @@ readline.question("Enter the port number(mandatory):", port => {
         !signal && app(port);
     });
 });
+
+
+function checkSignalOption(signalOption) {
+    if (signalOption && isNaN(signalOption)) {
+        logger.error("Invalid option");
+        exit(0);
+    }
+
+    if (signalOption && (signalOption < 0 || (signalOption > (Object.keys(INTERRUPTS).length - 1)))) {
+        logger.error(`Selected option not in range(0-${Object.keys(INTERRUPTS).length - 1}) => index values as shown in above table`);
+        exit(0);
+    }
+}
 
