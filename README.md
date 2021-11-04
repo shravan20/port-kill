@@ -1,4 +1,4 @@
-# port-kill [Documentation WIP]
+# port-kill
 
 
 Easiest way to kill hanging processes using port numbers - on any operating systems
@@ -20,3 +20,15 @@ To use the npm package of the `port-kill` using `npx`:
 
 > npx port-kill
 ```
+
+## Contributing
+
+Pull Requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Please make sure to update and keep the code in sync time to time.
+
+## Maintainers
+ - Karthik SJ
+ - Shravan Kumar B
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
