@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const app = require("./port-logic.js");
+const app = require("./port-logic");
 const logger = require("console");
 const { exit } = require("process");
 /**
