@@ -1,6 +1,6 @@
 {
   "name": "port-kill",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Script to kill the port/process",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   "bugs": {
     "url": "https://github.com/shravan20/port-killer/issues"
   },
-  "bin" :{
-    "port-kill" : "index.js"
+  "bin": {
+    "port-kill": "index.js"
   },
   "homepage": "https://github.com/shravan20/port-killer#readme",
   "devDependencies": {
