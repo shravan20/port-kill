@@ -5,7 +5,7 @@ const INTERRUPT_TYPE = require("./utils/constants").INTERRUPT_TYPE;
 const logger = require("console");
 const { exit } = require("process");
 
-module.exports = async function(port, signal = "SIGKILL") {
+module.exports = async function(port, signal = "SIGKILL", isHealthCheckOnly) {
 
     port = Number.parseInt(port);
     if(isNaN(port)){
@@ -26,6 +26,16 @@ module.exports = async function(port, signal = "SIGKILL") {
         exit(0);
     }
     
+    if(isHealthCheckOnly){
+        try {
+            logger.info(Number.parseInt(await (await exec(`lsof -i :${port}`)).stdout));
+            logger.error("Health Status: 👍🏼");            
+        } catch (error) {
+            logger.error("Health Status: 👎🏼");
+        }
+        return 0;
+    }
+
     /** 
      * To kill the process by port, get processId(pId) 
      */
