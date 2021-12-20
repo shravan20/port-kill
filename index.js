@@ -12,11 +12,24 @@ const readline = require('readline').createInterface({
     output: process.stdout
   });
   
-
   
-readline.question("Enter the port number(mandatory):", port => {
+readline.question("Enter the port number(mandatory):", async (port) => {
+    let healthCheckOnly = false;
     if(!port){ 
         logger.error("Empty Port is not allowed");
+        exit(0);
+    }
+
+    let arguments = process.argv;
+
+    if(arguments.length>2) {
+        if(arguments[2] == "--health"){
+            healthCheckOnly = true;
+        }
+    }
+
+    if(healthCheckOnly){
+        await app(port,null,healthCheckOnly);
         exit(0);
     }
 
