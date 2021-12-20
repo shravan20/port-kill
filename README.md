@@ -21,6 +21,13 @@ To use the npm package of the `port-kill` using `npx`:
 > npx port-kill
 ```
 
+
+If you are interested to only check the health or if port is alive or not:
+
+```
+> npx port-kill --health
+```
+
 ## Contributing
 
 Pull Requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
